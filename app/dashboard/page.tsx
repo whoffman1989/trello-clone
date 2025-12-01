@@ -4,15 +4,21 @@
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs"
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { useBoards } from "@/lib/hooks/useBoards";
 
 export default function DashboardPage () {
     const {user} = useUser()
-    const { createBoard } = useBoards();
+    const { createBoard, boards, loading, error } = useBoards();
 
     const handleCreateBoard = async () => {
-        await createBoard();
+        await createBoard( {title: "New Board"} );
+    };
+
+    if (loading) {
+        return <div>
+            <Loader2 /><span>Loading your boards...</span>
+        </div>
     }
 
     return (
