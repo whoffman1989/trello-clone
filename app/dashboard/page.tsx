@@ -4,7 +4,7 @@
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/nextjs"
-import { Divide, Filter, Grid3x3, List, Loader2, Plus, Rocket, Search, SquareActivity, Trello } from "lucide-react";
+import { Divide, Expand, Filter, Grid3x3, List, Loader2, Plus, Rocket, Search, SquareActivity, Trello } from "lucide-react";
 import { useBoards } from "@/lib/hooks/useBoards";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
@@ -46,11 +46,11 @@ export default function DashboardPage () {
                         Welcome back, {user?.firstName ?? user?.emailAddresses[0].emailAddress}! 
                     </h1>
                     <p className="text-gray-600">
-                       Here's what's happening with your boards today. 
+                       Here's what's happening with your Vendors today. 
                     </p>
-                    <Button className="w-full sm:w-auto" onClick={handleCreateBoard}>
+                    <Button className="w-full sm:w-auto mt-4" onClick={handleCreateBoard}>
                         <Plus className="h-4 w-4 mr-2"/>
-                        Create Board
+                        Create New RFQ
                     </Button>
                 </div>
 
@@ -60,11 +60,11 @@ export default function DashboardPage () {
                         <CardContent className="p-4 sm:p-6">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total Boards</p>
+                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total RFQ's</p>
                                     <p className="text-xl sm:text-2xl font-bold text-gray-900">{boards.length}</p>
                                 </div>
                                 <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                    <Trello className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600"/>
+                                    <Expand className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600"/>
                                 </div>
                             </div>
                         </CardContent>
@@ -73,7 +73,7 @@ export default function DashboardPage () {
                         <CardContent className="p-4 sm:p-6">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Active Projects</p>
+                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Active RFQ's</p>
                                     <p className="text-xl sm:text-2xl font-bold text-gray-900">
                                         {
                                             boards.length
@@ -112,11 +112,11 @@ export default function DashboardPage () {
                         <CardContent className="p-4 sm:p-6">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total Boards</p>
+                                    <p className="text-xs sm:text-sm font-medium text-gray-600">Total RFQ's</p>
                                     <p className="text-xl sm:text-2xl font-bold text-gray-900">{boards.length}</p>
                                 </div>
-                                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                    <Trello className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600"/>
+                                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <Trello className="h-5 w-5 sm:h-6 sm:w-6 text-red-600"/>
                                 </div>
                             </div>
                         </CardContent>
@@ -127,11 +127,11 @@ export default function DashboardPage () {
                 <div className="mb-6 sm:mb-8">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 space-y-4 sm:space-y-0">
                         <div>
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Your Boards</h2>
-                            <p className="text-gray-600">Manage your projects and tasks</p>
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Your RFQ's</h2>
+                            <p className="text-gray-600">Manage your Vendors and Requests</p>
                         </div>
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0">
-                            <div className="flex items-center space-x-2 bg-white border p-1">
+                            <div className="flex items-center space-x-2 bg-white border p-1 rounded-lg ml-2">
                                 <Button variant={viewMode === "grid" ? "default" : "ghost"} size="sm" onClick={() => setViewMode("grid")}>
                                     <Grid3x3 />
                                 </Button>
@@ -139,12 +139,12 @@ export default function DashboardPage () {
                                     <List />
                                 </Button>
                             </div>
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="lg" className="rounded-lg ml-2">
                                 <Filter />
                                 Filter
                             </Button>
-                            <Button onClick={handleCreateBoard}>
-                                <Plus /> Create Board
+                            <Button onClick={handleCreateBoard} className="rounded-lg ml-2" size="lg">
+                                <Plus /> Create New RFQ
                             </Button>
                         </div>
                     </div>

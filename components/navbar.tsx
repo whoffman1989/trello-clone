@@ -1,17 +1,20 @@
 "use client";
 
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
-import { ArrowLeft, ArrowRight, MoreHorizontal, Trello } from "lucide-react";
-import { Button } from "./ui/button";
+import { ArrowLeft, ArrowRight, Expand, MoreHorizontal, Filter} from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Badge } from "./ui/badge";
 
 interface Props {
     boardTitle?: string;
     onEditBoard?: () => void;
+    onFilterClick?: () => void;
+    filterCount?: number;
 }
 
-export default function Navbar({boardTitle, onEditBoard}: Props) {
+export default function Navbar({boardTitle, onEditBoard, onFilterClick, filterCount = 0}: Props) {
     const { isSignedIn, user } = useUser();
     const pathname = usePathname();
 
@@ -22,10 +25,10 @@ export default function Navbar({boardTitle, onEditBoard}: Props) {
     if (isDashboardPage) {
         return (
         <header className="border-b bg-white/80 backdrop-blue-sm sticky top-0 z-50">
-            <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+            <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">                                                                                                                                                                                                                                                                                       
                 <div className="flex items-center space-x-2">
-                    <Trello className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                    <span className="text-xl sm:text-2xl font-bold text-gray-900">Trello Clone</span>
+                    <Expand className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+                    <span className="text-xl sm:text-2xl font-bold text-gray-900">VendorPro</span>
                 </div>
                 <div className="flex items-center space-x-2 sm:space-x-4">
                     <UserButton />
@@ -47,7 +50,7 @@ export default function Navbar({boardTitle, onEditBoard}: Props) {
                         </Link>
                         <div className="h-4 sm:h-6 w-px bg-gray-300 hidden sm:block"/>
                         <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
-                            <Trello className="text-blue-600"/>
+                            <Expand className="text-blue-600"/>
                             <div className="items-center space-x-1 sm:space-x-2 min-w-0">
                             <span className="text-lg font-bold text-gray-900 truncate">{boardTitle}</span>
                             {onEditBoard && (
@@ -58,6 +61,16 @@ export default function Navbar({boardTitle, onEditBoard}: Props) {
                             </div>
                         </div>
                     </div>
+                    <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0"> 
+                        {onFilterClick && (
+                            <Button variant="outline" size="sm" className={`text-xs sm:text-sm ${filterCount > 0 ? "bg-blue-100 border-blue-200" : ""}`}
+                            onClick={onFilterClick}>
+                                <Filter className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2"/>
+                                <span className="hidden sm:inline">Filter</span>
+                                {filterCount > 0 && <Badge variant="secondary" className="text-xs ml-1 sm:ml-2 bg-blue-100 border-blue-200">{filterCount}</Badge>}
+                            </Button>
+                        )}
+                    </div>
                 </div>
             </div>
         </header>
@@ -67,8 +80,8 @@ export default function Navbar({boardTitle, onEditBoard}: Props) {
         <header className="border-b bg-white/80 backdrop-blue-sm sticky top-0 z-50">
             <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                    <Trello className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
-                    <span className="text-xl sm:text-2xl font-bold text-gray-900">Trello Clone</span>
+                    <Expand className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600" />
+                    <span className="text-xl sm:text-2xl font-bold text-gray-900">VendorPro</span>
                 </div>
                 <div className="flex items-center space-x-2 sm:space-x-4">
                     { isSignedIn ? (
